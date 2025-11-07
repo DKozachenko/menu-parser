@@ -35,6 +35,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1em;
+
+  width: 100%;
+}
+
+.text-label {
+  text-align: center;
 }
 
 .text-textarea {

@@ -30,7 +30,7 @@ function onPasteText(event) {
     return;
   }
 
-  setSecondStep();
+  setSecondStep(menu);
 }
 
 function setFirstStep(menu) {
