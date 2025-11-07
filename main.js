@@ -33,10 +33,6 @@ function onPasteText(event) {
   setSecondStep(menu);
 }
 
-function setFirstStep(menu) {
-
-}
-
 function parseMenu(match) {
   const menu = {
     monday: {},
@@ -108,6 +104,26 @@ function hasNoNulls(obj) {
   return true;
 }
 
-function setSecondStep() {
+function setSecondStep(menu) {
+  const flowStepBlock = document.querySelector('.flow-step');
+  flowStepBlock.innerHTML = `
+    <div class="handled-block">
+      <p>Меню успешно обработано!</p>
 
+      <div class="checkbox">
+        <input type="checkbox" id="include-sunday" checked />
+        <label for="include-sunday">Добавить воскресенье для выбора</label>
+      </div>
+
+      <button class="button" type="button">Начать выбор</button>
+    </div>
+  `;
+
+  const button = document.querySelector('.button');
+  button.addEventListener('click', setThirdStep)
+}
+
+function setThirdStep() {
+  const includeSundayCheckbox = document.querySelector('#include-sunday');
+  console.warn(includeSundayCheckbox.checked);
 }

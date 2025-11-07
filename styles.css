@@ -46,3 +46,34 @@ body {
 .text-textarea {
   resize: none;
 }
+
+.handled-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid darkgray;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.checkbox {
+  margin-bottom: 1em;
+}
+
+.button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 7px 16px;
+
+  margin-bottom: 1em;
+  transition: background-color .2s linear, 
+    color .2s linear;
+}
+
+.button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
