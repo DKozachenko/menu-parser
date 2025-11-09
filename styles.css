@@ -5,7 +5,7 @@
 }
 
 html {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
@@ -76,4 +76,16 @@ body {
   cursor: pointer;
   color: white;
   background-color: black;
+}
+
+.day-fieldset {
+  margin-bottom: 1em;
+}
+
+.result-text {
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  padding: 1em;
+
+  margin: 0 auto;
 }
