@@ -78,6 +78,17 @@ body {
   background-color: black;
 }
 
+.add-meals {
+  border-color: skyblue;
+  padding: 4px 14px;
+  margin: 0;
+  margin-top: .8em;
+}
+
+.add-meals:hover {
+  background-color: skyblue;
+}
+
 .day-fieldset {
   margin-bottom: 1em;
 }

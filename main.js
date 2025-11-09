@@ -161,11 +161,16 @@ function setThirdStep(menu, includeSunday) {
 
       ${includeSunday ? buildDayFieldset(SUNDAY_KEY, menu, FRIDAY_KEY, SATURDAY_KEY) : ''}
 
-      <button class="button" type="submit">Сформировать</button>
+      <button class="button form-button" type="submit">Сформировать</button>
     </form>
   `;
 
-  const formButton = document.querySelector('.button');
+  const addMealsButtons = document.querySelectorAll('.add-meals');
+  addMealsButtons.forEach(button => {
+    button.addEventListener('click', (event) => addMeals(event.target, menu));
+  });
+
+  const formButton = document.querySelector('.form-button');
   formButton.addEventListener('click', (event) => {
     event.preventDefault();
     setFourthStep(menu, includeSunday);
@@ -196,6 +201,12 @@ function buildMealFieldset(dayKey, mealKey, menu, day1ForChoose, day2ForChoose) 
         <input type="radio" name="${dayKey}-${mealKey}" id="${dayKey}-${day2ForChoose}-${mealKey}-2" value="${menu[day2ForChoose][mealKey].secondOption}" />
         <label for="${dayKey}-${day2ForChoose}-${mealKey}-2">${menu[day2ForChoose][mealKey].secondOption}</label>
       </div>
+
+      ${mealKey === BREAKFAST_KEY 
+        ? '' 
+        : mealKey === LUNCH_KEY 
+          ? `<button class="button add-meals" type="button" data-day-key="${dayKey}" data-meal-key="${mealKey}">+блюда с ужина</button>`
+          : `<button class="button add-meals" type="button" data-day-key="${dayKey}" data-meal-key="${mealKey}">+блюда с обеда</button>`}
     </fieldset>
   `;
 }
@@ -284,4 +295,39 @@ function buildMealsWithCount(mealsDistribution) {
   return `
     ${Object.entries(mealsDistribution).map(([meal, count]) => `${meal} x${count}<br/>`).join('')}
   `;
+}
+
+function addMeals(button, menu) {
+  const { dayKey, mealKey } = button.dataset;
+  
+  let neededDays = [];
+  if (dayKey === MONDAY_KEY || dayKey === TUESDAY_KEY) {
+    neededDays = [menu[MONDAY_KEY], menu[TUESDAY_KEY]];
+  }
+
+  if (dayKey === WEDNESDAY_KEY || dayKey === THURSDAY_KEY) {
+    neededDays = [menu[WEDNESDAY_KEY], menu[THURSDAY_KEY]];
+  }
+
+  if (dayKey === FRIDAY_KEY || dayKey === SATURDAY_KEY || dayKey === SUNDAY_KEY) {
+    neededDays = [menu[FRIDAY_KEY], menu[SATURDAY_KEY]];
+  }
+
+  const optionsToAdd = mealKey === LUNCH_KEY 
+    ? neededDays.map((dayMenu) => [dayMenu[DINNER_KEY].firstOption, dayMenu[DINNER_KEY].secondOption]).flat()
+    : neededDays.map((dayMenu) => [dayMenu[LUNCH_KEY].firstOption, dayMenu[LUNCH_KEY].secondOption]).flat();
+
+
+  optionsToAdd.forEach((addedMeal, index) => {
+    const div = document.createElement('div');
+
+    div.innerHTML = `
+      <input type="radio" name="${dayKey}-${mealKey}" id="${dayKey}-${dayKey}-${mealKey}-${3 + index}" value="${addedMeal}" />
+      <label for="${dayKey}-${dayKey}-${mealKey}-${3 + index}">${addedMeal}</label>
+    `;
+
+    button.before(div);
+  });
+
+  button.disabled = true;
 }
