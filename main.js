@@ -1,5 +1,5 @@
-const ALL_TEXT_REGEXP = /.*([А-Я]{1}[А-Яа-яё «»,\/\-\(\)\/]+)\n([И|и])ли\n.*([А-Я]{1}[А-Яа-яё «»,\/\-\(\)\/]+)/gm;
-const OPTIONS_REGEXP = /.*(?<firstDish>[А-Я]{1}[А-Яа-яё «»,\/\-\(\)\/]+)\n([И|и])ли\n.*(?<secondDish>[А-Я]{1}[А-Яа-яё «»,\/\-\(\)\/]+)/;
+const ALL_TEXT_REGEXP = /.*([А-ЯЁ]{1}[А-Яа-яё «»,\/\-\(\)\/]+)\n([И|и])ли\n.*([А-ЯЁ]{1}[А-Яа-яё «»,\/\-\(\)\/]+)/gm;
+const OPTIONS_REGEXP = /.*(?<firstDish>[А-ЯЁ]{1}[А-Яа-яё «»,\/\-\(\)\/]+)\n([И|и])ли\n.*(?<secondDish>[А-ЯЁ]{1}[А-Яа-яё «»,\/\-\(\)\/]+)/;
 
 const MONDAY_KEY = 'monday';
 const TUESDAY_KEY = 'tuesday';
@@ -37,6 +37,7 @@ function onPasteText(event) {
 
   const match = pastedText.match(ALL_TEXT_REGEXP);
 
+  console.warn('match', match, match.length);
   if (!match || match.length !== 18) {
     return;
   }
